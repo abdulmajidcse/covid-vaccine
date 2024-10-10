@@ -4,7 +4,7 @@ import { FwbHeading, FwbAlert } from "flowbite-vue";
 
 <template>
     <div class="mx-auto">
-        <fwb-heading tag="h2">Get your COVID-19 Vaccine</fwb-heading>
+        <fwb-heading tag="h4">Process to get COVID Vaccine</fwb-heading>
 
         <div class="vp-raw grid gap-2 mt-8">
             <fwb-alert class="border-t-4 rounded-none" icon type="info">
