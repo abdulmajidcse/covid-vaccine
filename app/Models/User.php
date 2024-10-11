@@ -20,6 +20,9 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'mobile',
+        'nid',
+        'address',
         'password',
     ];
 
@@ -44,5 +47,13 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    /**
+     * Get the vaccine schedule
+     */
+    public function vaccineSchedule()
+    {
+        return $this->hasOne(VaccineSchedule::class, 'user_id');
     }
 }

@@ -2,11 +2,19 @@ import { createWebHistory, createRouter } from "vue-router";
 
 const routes = [
     { path: "/", name: "home", component: () => import("./../views/Home.vue") },
+
     {
-        path: "/about",
-        name: "about",
-        component: () => import("./../views/About.vue"),
+        path: "/register",
+        name: "register",
+        component: () => import("./../views/Register.vue"),
     },
+
+    {
+        path: "/search",
+        name: "search",
+        component: () => import("./../views/Search.vue"),
+    },
+
     {
         path: "/:pathMatch(.*)*",
         name: "notFound",
