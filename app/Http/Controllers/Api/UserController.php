@@ -25,18 +25,18 @@ class UserController extends Controller
      */
     public function search($nid)
     {
-        $user = User::with('vaccineSchedule')->where('nid', $nid)->first();
+        $user = User::where('nid', $nid)->first();
 
         $response = [];
         if (!$user) {
             $response['message'] = 'Not registered';
             $response['data']['result_type'] = 'danger';
-        } else if ($user->vaccineSchedule) {
-            if ($user->vaccineSchedule->schedule_date < date('Y-m-d')) {
+        } else if ($user->vaccine_date) {
+            if ($user->vaccine_date < date('Y-m-d')) {
                 $response['message'] = 'Vaccinated';
                 $response['data']['result_type'] = 'success';
             } else {
-                $response['message'] = 'Scheduled at ' . $user->vaccineSchedule->schedule_date;
+                $response['message'] = 'Scheduled at ' . $user->vaccine_date;
                 $response['data']['result_type'] = 'info';
             }
         } else {

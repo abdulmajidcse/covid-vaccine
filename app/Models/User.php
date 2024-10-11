@@ -23,6 +23,8 @@ class User extends Authenticatable
         'mobile',
         'nid',
         'address',
+        'vaccine_center_id',
+        'vaccine_date',
         'password',
     ];
 
@@ -50,10 +52,10 @@ class User extends Authenticatable
     }
 
     /**
-     * Get the vaccine schedule
+     * Get vaccine center by the user
      */
-    public function vaccineSchedule()
+    public  function vaccineCenter()
     {
-        return $this->hasOne(VaccineSchedule::class, 'user_id');
+        return $this->belongsTo(VaccineCenter::class);
     }
 }
