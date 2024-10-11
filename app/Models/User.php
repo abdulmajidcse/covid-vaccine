@@ -50,4 +50,12 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    /**
+     * Get vaccine center by the user
+     */
+    public  function vaccineCenter()
+    {
+        return $this->belongsTo(VaccineCenter::class);
+    }
 }
