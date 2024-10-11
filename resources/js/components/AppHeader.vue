@@ -37,7 +37,7 @@ const appUrl = ref(import.meta.env.VITE_APP_URL);
                         :to="{ name: 'register' }"
                         exactActiveClass="text-blue-700"
                     >
-                        Register</router-link
+                        Registration</router-link
                     >
                 </fwb-navbar-link>
                 <fwb-navbar-link link="#"
