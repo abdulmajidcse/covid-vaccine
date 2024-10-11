@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string('mobile')->unique();
             $table->string('nid');
             $table->text('address');
+            $table->foreignId('vaccine_center_id');
+            $table->date('vaccine_date')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password')->nullable();
             $table->rememberToken();

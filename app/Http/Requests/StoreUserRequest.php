@@ -5,6 +5,7 @@ namespace App\Http\Requests;
 use App\Models\User;
 use Illuminate\Validation\Rule;
 use App\Http\Resources\ErrorResource;
+use App\Models\VaccineCenter;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Validation\ValidationException;
@@ -32,6 +33,19 @@ class StoreUserRequest extends FormRequest
             'mobile' => ['required', 'numeric', 'digits:11', 'starts_with:01', Rule::unique(User::class)],
             'nid' => ['required', 'numeric', 'min_digits:10', 'max_digits:13', Rule::unique(User::class)],
             'address' => ['required', 'string', 'max:1000'],
+            'vaccine_center_id' => ['required', 'numeric', 'min:1', Rule::exists(VaccineCenter::class, 'id')],
+        ];
+    }
+
+    /**
+     * Get custom attributes for validator errors.
+     *
+     * @return array
+     */
+    public function attributes()
+    {
+        return [
+            'vaccine_center_id' => 'vaccine center',
         ];
     }
 

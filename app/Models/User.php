@@ -23,6 +23,8 @@ class User extends Authenticatable
         'mobile',
         'nid',
         'address',
+        'vaccine_center_id',
+        'vaccine_date',
         'password',
     ];
 
@@ -47,13 +49,5 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
-    }
-
-    /**
-     * Get the vaccine schedule
-     */
-    public function vaccineSchedule()
-    {
-        return $this->hasOne(VaccineSchedule::class, 'user_id');
     }
 }

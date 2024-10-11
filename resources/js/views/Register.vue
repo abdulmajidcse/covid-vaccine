@@ -1,6 +1,6 @@
 <script setup>
-import { FwbHeading, FwbInput, FwbButton } from "flowbite-vue";
-import { reactive, ref } from "vue";
+import { FwbHeading, FwbInput, FwbButton, FwbSelect } from "flowbite-vue";
+import { reactive, ref, onMounted } from "vue";
 import Loader from "../components/Loader.vue";
 import { useToast } from "vue-toast-notification";
 import { useRouter } from "vue-router";
@@ -13,6 +13,7 @@ const data = reactive({
     mobile: "",
     nid: "",
     address: "",
+    vaccine_center_id: "",
 });
 
 const errors = reactive({
@@ -21,9 +22,12 @@ const errors = reactive({
     mobile: "",
     nid: "",
     address: "",
+    vaccine_center_id: "",
 });
 
 const isLoading = ref(false);
+
+const vaccineCenters = ref([]);
 
 const $toast = useToast();
 
@@ -33,6 +37,7 @@ const resetErrors = () => {
     errors.mobile = "";
     errors.nid = "";
     errors.address = "";
+    errors.vaccine_center_id = "";
 };
 
 const updateErrors = (formErrors) => {
@@ -41,6 +46,7 @@ const updateErrors = (formErrors) => {
     errors.mobile = formErrors.mobile?.[0] ?? "";
     errors.nid = formErrors.nid?.[0] ?? "";
     errors.address = formErrors.address?.[0] ?? "";
+    errors.vaccine_center_id = formErrors.vaccine_center_id?.[0] ?? "";
 };
 
 const onSubmit = () => {
@@ -65,6 +71,27 @@ const onSubmit = () => {
             isLoading.value = false;
         });
 };
+
+const getVaccineCenters = () => {
+    isLoading.value = true;
+    axios
+        .get("api/vaccine-centers")
+        .then((response) => {
+            vaccineCenters.value = response.data.data;
+        })
+        .catch((error) => {
+            $toast.error(
+                error.response?.data?.message ?? "Something went wrong!"
+            );
+        })
+        .finally(() => {
+            isLoading.value = false;
+        });
+};
+
+onMounted(() => {
+    getVaccineCenters();
+});
 </script>
 
 <template>
@@ -118,6 +145,19 @@ const onSubmit = () => {
                         {{ errors.nid }}
                     </template>
                 </fwb-input>
+
+                <fwb-select
+                    v-model="data.vaccine_center_id"
+                    :options="vaccineCenters"
+                    label="Vaccine center"
+                    :validation-status="`${
+                        errors.vaccine_center_id ? 'error' : ''
+                    }`"
+                >
+                    <template #validationMessage>
+                        {{ errors.vaccine_center_id }}
+                    </template>
+                </fwb-select>
 
                 <div class="sm:col-span-2">
                     <fwb-input
