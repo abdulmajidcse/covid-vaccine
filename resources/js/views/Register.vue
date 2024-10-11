@@ -3,6 +3,9 @@ import { FwbHeading, FwbInput, FwbButton } from "flowbite-vue";
 import { reactive, ref } from "vue";
 import Loader from "../components/Loader.vue";
 import { useToast } from "vue-toast-notification";
+import { useRouter } from "vue-router";
+
+const router = useRouter();
 
 const data = reactive({
     name: "",
@@ -48,6 +51,8 @@ const onSubmit = () => {
         .then((response) => {
             console.log("then", response);
             $toast.success(response.data.message);
+
+            router.push({ name: "home" });
         })
         .catch((error) => {
             console.log("catch", error.response.data.errors);
@@ -55,10 +60,11 @@ const onSubmit = () => {
                 updateErrors(error.response.data.errors);
             }
 
-            $toast.error(error.response.data.message);
+            $toast.error(
+                error.response?.data?.message ?? "Something went wrong!"
+            );
         })
         .finally(() => {
-            console.log("final");
             isLoading.value = false;
         });
 };
