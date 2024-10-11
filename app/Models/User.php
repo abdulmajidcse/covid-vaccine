@@ -48,4 +48,12 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    /**
+     * Get the vaccine schedule
+     */
+    public function vaccineSchedule()
+    {
+        return $this->hasOne(VaccineSchedule::class, 'user_id');
+    }
 }

@@ -49,13 +49,10 @@ const onSubmit = () => {
     axios
         .post("api/users", data)
         .then((response) => {
-            console.log("then", response);
             $toast.success(response.data.message);
-
             router.push({ name: "home" });
         })
         .catch((error) => {
-            console.log("catch", error.response.data.errors);
             if (error.response?.data?.errors) {
                 updateErrors(error.response.data.errors);
             }
