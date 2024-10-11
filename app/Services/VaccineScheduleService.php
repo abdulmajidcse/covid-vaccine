@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\User;
+use App\Notifications\VaccineScheduleNotification;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Log;
 
@@ -65,6 +66,9 @@ class VaccineScheduleService
                 ]);
 
                 // send a notification to the users at 9 pm
+                // before the night of their scheduled vaccination date
+                $delay = Carbon::parse($availableDate)->subDays(1)->setTime(21, 0);
+                $notScheduledUser->notify((new VaccineScheduleNotification($availableDate->format('Y-m-d')))->delay($delay));
             }
         } catch (\Throwable $th) {
             Log::channel('daily-custom')
