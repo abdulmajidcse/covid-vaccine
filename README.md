@@ -42,4 +42,9 @@ A COVID vaccine registration system where people can register and get vaccine.
 
 -   Now, you can register for vaccine and others.
 
+## SMS Notification Feature
+If an additional requirement of sending ‘SMS’ notification along with the email notification for vaccine schedule date is given in the future, what changes need to be make on my code. 
+- Setup SMS providers gateway.
+- Just have to add a new line to send SMS in the `App\Services\VaccineScheduleService` class after sending the email notification or we can add a notification route (Example ` ->route('vonage', '5555555555')`) to send SMS via Laravel Notification Facade.
+
 ## Thank you!
